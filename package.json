@@ -4,7 +4,7 @@
   "description": "QA-Selenium",
   "main": "index.js",
   "scripts": {
-    "test": "mocha testBbcOnVM.spec.js"
+    "test": "mocha testCommunityExercise.spec.js"
   },
   "author": "Michal Broos",
   "license": "ISC",
