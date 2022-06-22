@@ -20,31 +20,46 @@ describe("Test Movies FE", function () {
 
     it("getAll link from / stays on /", async () => {
         await driver.get("http://localhost:3000/");
-        const url1 = await driver.getCurrentUrl()
+        const url1 = await driver.getCurrentUrl();
         // getAll link in navbar
         await driver.findElement(By.xpath("/html/body/div/a[1]")).click();
-        const url2 = await driver.getCurrentUrl()
+        const url2 = await driver.getCurrentUrl();
         console.log(url1, "?", url2);
         assert.equal(url1, url2);
     });
 
     it("getAll link from /add does not stay on /add", async () => {
         await driver.get("http://localhost:3000/add");
-        const url1 = await driver.getCurrentUrl()
+        const url1 = await driver.getCurrentUrl();
         // getAll link in navbar
         await driver.findElement(By.xpath("/html/body/div/a[1]")).click();
-        const url2 = await driver.getCurrentUrl()
+        const url2 = await driver.getCurrentUrl();
         console.log(url1, "?", url2);
         assert.notEqual(url1, url2);
     });
 
     it("getAll link from /getbyid ends on /", async () => {
         await driver.get("http://localhost:3000/getbyid");
-        const url1 = "http://localhost:3000/"
+        const url1 = "http://localhost:3000/";
         // getAll link in navbar
         await driver.findElement(By.xpath("/html/body/div/a[1]")).click();
-        const url2 = await driver.getCurrentUrl()
+        const url2 = await driver.getCurrentUrl();
         console.log(url1, "?", url2);
         assert.equal(url1, url2);
     });
+
+    it("adding a movie redirects to /", async () => {
+        const home = "http://localhost:3000/";
+        await driver.get(`${home}add`);
+        // Title input box
+        await driver.findElement(By.name("title")).sendKeys("testAdd");
+        // Submit button
+        await driver.findElement(By.xpath("/html/body/div/form/button[1]")).click();
+        const url2 = await driver.getCurrentUrl();
+        console.log(home, "?", url2);
+        assert.equal(home, url2);
+    });
 });
+
+// potential test "should have 3 links in navbar on /"
+// delete - base on assumption a movie is in already
