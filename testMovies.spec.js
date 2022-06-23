@@ -163,6 +163,27 @@ describe("Test Movies FE", function () {
             });
         assert.equal(a, ":arr");
     });
+
+    it("should have 3 links (a tags) on /", async () => {
+        const expectedLength = 3;
+        await driver.get("http://localhost:3000/");
+        await driver.findElements(By.css("a"))
+            .then(links => assert.equal(links.length, expectedLength));
+    });
+
+    it("should have 3 links (a tags) on /add", async () => {
+        const expectedLength = 3;
+        await driver.get("http://localhost:3000/add");
+        await driver.findElements(By.css("a"))
+            .then(links => assert.equal(links.length, expectedLength));
+    });
+
+    it("should have 3 links (a tags) on /getbyid", async () => {
+        const expectedLength = 3;
+        await driver.get("http://localhost:3000/getbyid");
+        await driver.findElements(By.css("a"))
+            .then(links => assert.equal(links.length, expectedLength));
+    });
 });
 
 // potential test "should have 3 links in navbar on /"
