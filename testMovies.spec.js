@@ -126,6 +126,15 @@ describe("Test Movies FE", function () {
         const getByIdH2 = await driver.findElement(By.xpath("/html/body/div/h2")).getText();
         assert.equal(getByIdH2, "Search by id");
     });
+
+    it("a tags", async () => {
+        await driver.get("http://localhost:3000/");
+        // tagName deprecated, selenium docs - use css instead
+        // const a = await driver.findElement(By.tagName("a"));
+        await driver.findElements(By.css("a"))
+            .then(link => console.log(link[0].getAttribute('innerHTML')));
+        // console.log("arr:", links[0].getAttribute('innerHTML').then((s) => s));
+    });
 });
 
 // potential test "should have 3 links in navbar on /"
