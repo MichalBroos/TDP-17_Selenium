@@ -61,6 +61,30 @@ describe("Test Movies FE", function () {
         console.log(homeUrl, "?", endUrl);
         assert.equal(homeUrl, endUrl);
     });
+
+    it("cancel on /add redirects to /", async () => {
+        const homeUrl = "http://localhost:3000/";
+        await driver.get(`${homeUrl}add`);
+        // Cancel button
+        await driver.findElement(By.xpath("/html/body/div/form/button[2]")).click();
+        // pause after cancel redirect so getCurrentUrl doesn't run too early
+        await driver.sleep(500);
+        const endUrl = await driver.getCurrentUrl();
+        console.log(homeUrl, "?", endUrl);
+        assert.equal(homeUrl, endUrl);
+    });
+
+    it("cancel on /getbyid redirects to /", async () => {
+        const homeUrl = "http://localhost:3000/";
+        await driver.get(`${homeUrl}getbyid`);
+        // Cancel button
+        await driver.findElement(By.xpath("/html/body/div/form/button[2]")).click();
+        // pause after cancel redirect so getCurrentUrl doesn't run too early
+        await driver.sleep(500);
+        const endUrl = await driver.getCurrentUrl();
+        console.log(homeUrl, "?", endUrl);
+        assert.equal(homeUrl, endUrl);
+    });
 });
 
 // potential test "should have 3 links in navbar on /"
