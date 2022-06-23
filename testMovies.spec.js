@@ -85,6 +85,12 @@ describe("Test Movies FE", function () {
         console.log(homeUrl, "?", endUrl);
         assert.equal(homeUrl, endUrl);
     });
+
+    it("/getbyid shows no movie on load", async () => {
+        await driver.get("http://localhost:3000/getbyid");
+        const result = await driver.findElement(By.xpath("/html/body/div/p")).getText();
+        assert.match(result, /No movie with the given id found/);
+    });
 });
 
 // potential test "should have 3 links in navbar on /"
