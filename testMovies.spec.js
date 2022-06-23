@@ -131,10 +131,37 @@ describe("Test Movies FE", function () {
         await driver.get("http://localhost:3000/");
         // tagName deprecated, selenium docs - use css instead
         // const a = await driver.findElement(By.tagName("a"));
-        await driver.findElements(By.css("a"))
-            .then(links => links[0].getAttribute('outerHTML'))
-            .then(html => console.log(html));
+        let a = [];
+        // await driver.findElements(By.css("a"))
+        //     .then(links => {
+        //         for (let link of links) {
+        //             a.push(link.getAttribute('outerHTML'));
+        //         }
+        //     });
+        // await Promise.all(a).then(vals => console.log(vals))
+            // .then(html => console.log(html));
+        // console.log("arr", a);
         // console.log("arr:", links[0].getAttribute('innerHTML').then((s) => s));
+
+        // await driver.findElements(By.css("a"))
+        //     .then(links => links.forEach(link => link.getAttribute('outerHTML').then(html => a.push((html)))));
+
+        // await driver.findElements(By.css("a"))
+        //     .then(links => Promise.all(links).then(vals => a.push(vals)));
+
+        await driver.findElements(By.css("a"))
+        // then resolves Promise and links should then be array of webelements
+            .then(links => {
+                for (let i = 0; i < links.length; i++) {
+                    // for each webelement, call getAttributes which returns Promise<string>
+                    links[i].getAttribute('outerHTML').then(html => {
+                        // then resolves Promise, html is string wanted, log works, push doesn't
+                        console.log(html);
+                        a.push(html);
+                    });
+                }
+            });
+        assert.equal(a, ":arr");
     });
 });
 
