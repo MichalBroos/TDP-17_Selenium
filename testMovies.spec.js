@@ -103,6 +103,17 @@ describe("Test Movies FE", function () {
             await driver.findElement(By.xpath("/html/body/div/form/button[1]")).click();
         });
     });
+
+    it("/getbyid shows no movie when invalid id searched", async () => {
+        await driver.get("http://localhost:3000/getbyid");
+        // Id input box
+        await driver.findElement(By.name("id")).sendKeys("invalidId");
+        // Submit button
+        await driver.findElement(By.xpath("/html/body/div/form/button[1]")).click();
+        // Search result
+        const result = await driver.findElement(By.xpath("/html/body/div/p")).getText();
+        assert.match(result, /No movie with the given id found/);
+    });
 });
 
 // potential test "should have 3 links in navbar on /"
