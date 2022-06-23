@@ -49,15 +49,17 @@ describe("Test Movies FE", function () {
     });
 
     it("adding a movie redirects to /", async () => {
-        const home = "http://localhost:3000/";
-        await driver.get(`${home}add`);
+        const homeUrl = "http://localhost:3000/";
+        await driver.get(`${homeUrl}add`);
         // Title input box
         await driver.findElement(By.name("title")).sendKeys("testAdd");
         // Submit button
         await driver.findElement(By.xpath("/html/body/div/form/button[1]")).click();
-        const url2 = await driver.getCurrentUrl();
-        console.log(home, "?", url2);
-        assert.equal(home, url2);
+        // sometimes gets the url too early (before redirect completes)
+        // not sure how to delay this
+        const endUrl = await driver.getCurrentUrl();
+        console.log(homeUrl, "?", endUrl);
+        assert.equal(homeUrl, endUrl);
     });
 });
 
