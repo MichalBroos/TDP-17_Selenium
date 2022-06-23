@@ -91,6 +91,18 @@ describe("Test Movies FE", function () {
         const result = await driver.findElement(By.xpath("/html/body/div/p")).getText();
         assert.match(result, /No movie with the given id found/);
     });
+
+    it("/getbyid doesn't throw error when invalid id searched", async () => {
+        // unsure how to write this test, it isn't right because throwing error explicitly
+        // in the backend doesn't make this fail = test not working
+        assert.doesNotThrow(async () => {
+            await driver.get("http://localhost:3000/getbyid");
+            // Id input box
+            await driver.findElement(By.name("id")).sendKeys("invalidId");
+            // Submit button
+            await driver.findElement(By.xpath("/html/body/div/form/button[1]")).click();
+        });
+    });
 });
 
 // potential test "should have 3 links in navbar on /"
