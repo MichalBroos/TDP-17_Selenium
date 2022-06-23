@@ -114,6 +114,18 @@ describe("Test Movies FE", function () {
         const result = await driver.findElement(By.xpath("/html/body/div/p")).getText();
         assert.match(result, /No movie with the given id found/);
     });
+
+    it("should have the correct h2 on /add", async () => {
+        await driver.get("http://localhost:3000/add");
+        const addH2 = await driver.findElement(By.xpath("/html/body/div/h2")).getText();
+        assert.equal(addH2, "Add a new movie");
+    });
+
+    it("should have the correct h2 on /getbyid", async () => {
+        await driver.get("http://localhost:3000/getbyid");
+        const getByIdH2 = await driver.findElement(By.xpath("/html/body/div/h2")).getText();
+        assert.equal(getByIdH2, "Search by id");
+    });
 });
 
 // potential test "should have 3 links in navbar on /"
