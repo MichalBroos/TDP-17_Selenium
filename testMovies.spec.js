@@ -55,8 +55,8 @@ describe("Test Movies FE", function () {
         await driver.findElement(By.name("title")).sendKeys("testAdd");
         // Submit button
         await driver.findElement(By.xpath("/html/body/div/form/button[1]")).click();
-        // sometimes gets the url too early (before redirect completes)
-        // not sure how to delay this
+        // pause after submit redirect so getCurrentUrl doesn't run too early
+        await driver.sleep(500);
         const endUrl = await driver.getCurrentUrl();
         console.log(homeUrl, "?", endUrl);
         assert.equal(homeUrl, endUrl);
