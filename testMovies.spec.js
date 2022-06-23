@@ -132,7 +132,8 @@ describe("Test Movies FE", function () {
         // tagName deprecated, selenium docs - use css instead
         // const a = await driver.findElement(By.tagName("a"));
         await driver.findElements(By.css("a"))
-            .then(link => console.log(link[0].getAttribute('innerHTML')));
+            .then(links => links[0].getAttribute('outerHTML'))
+            .then(html => console.log(html));
         // console.log("arr:", links[0].getAttribute('innerHTML').then((s) => s));
     });
 });
