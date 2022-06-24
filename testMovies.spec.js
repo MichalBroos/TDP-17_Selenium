@@ -195,6 +195,34 @@ describe("Test Movies FE", function () {
         await driver.findElements(By.css("a"))
             .then(links => assert.equal(links.length, expectedLength));
     });
+
+    it("navbar has the correct links (text) on /add", async () => {
+        let expected = "getAll, add, getById";
+        let promises = [];
+        await driver.get("http://localhost:3000/add");
+        await driver.findElements(By.css("a"))
+            .then(links => {
+                for (let link of links) {
+                    promises.push(link.getText());
+                }
+            });
+        let actual = (await Promise.all(promises)).join(", ");
+        assert.equal(actual, expected);
+    });
+
+    it("navbar has the correct links (text) on /getbyid", async () => {
+        let expected = "getAll, add, getById";
+        let promises = [];
+        await driver.get("http://localhost:3000/getbyid");
+        await driver.findElements(By.css("a"))
+            .then(links => {
+                for (let link of links) {
+                    promises.push(link.getText());
+                }
+            });
+        let actual = (await Promise.all(promises)).join(", ");
+        assert.equal(actual, expected);
+    });
 });
 
 // potential test "should have 3 links in navbar on /"
