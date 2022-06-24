@@ -127,11 +127,11 @@ describe("Test Movies FE", function () {
         assert.equal(getByIdH2, "Search by id");
     });
 
-    it("a tags", async () => {
+    it("navbar has the correct links (text) on /", async () => {
         await driver.get("http://localhost:3000/");
         // tagName deprecated, selenium docs - use css instead
         // const a = await driver.findElement(By.tagName("a"));
-        let a = [];
+        // let a = [];
         // await driver.findElements(By.css("a"))
         //     .then(links => {
         //         for (let link of links) {
@@ -162,16 +162,17 @@ describe("Test Movies FE", function () {
         //         }
         //     });
 
-
+        // solution
+        let expected = "getAll, add, getById";
+        let promises = [];
         await driver.findElements(By.css("a"))
             .then(links => {
                 for (let link of links) {
-                    a.push(Promise.resolve(link.getAttribute('outerHTML')));
+                    promises.push(link.getText());
                 }
             });
-        let b = [];
-        await Promise.all(a).then(vals => b.push(vals));
-        assert.equal(b, ":arr");
+        let actual = (await Promise.all(promises)).join(", ");
+        assert.equal(actual, expected);
     });
 
     it("should have 3 links (a tags) on /", async () => {
