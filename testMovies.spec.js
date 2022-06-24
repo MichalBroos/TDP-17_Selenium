@@ -149,19 +149,29 @@ describe("Test Movies FE", function () {
         // await driver.findElements(By.css("a"))
         //     .then(links => Promise.all(links).then(vals => a.push(vals)));
 
+        // await driver.findElements(By.css("a"))
+        // // then resolves Promise and links should then be array of webelements
+        //     .then(links => {
+        //         for (let i = 0; i < links.length; i++) {
+        //             // for each webelement, call getAttributes which returns Promise<string>
+        //             links[i].getAttribute('outerHTML').then(html => {
+        //                 // then resolves Promise, html is string wanted, log works, push doesn't
+        //                 console.log(html);
+        //                 a.push(html);
+        //             });
+        //         }
+        //     });
+
+
         await driver.findElements(By.css("a"))
-        // then resolves Promise and links should then be array of webelements
             .then(links => {
-                for (let i = 0; i < links.length; i++) {
-                    // for each webelement, call getAttributes which returns Promise<string>
-                    links[i].getAttribute('outerHTML').then(html => {
-                        // then resolves Promise, html is string wanted, log works, push doesn't
-                        console.log(html);
-                        a.push(html);
-                    });
+                for (let link of links) {
+                    a.push(Promise.resolve(link.getAttribute('outerHTML')));
                 }
             });
-        assert.equal(a, ":arr");
+        let b = [];
+        await Promise.all(a).then(vals => b.push(vals));
+        assert.equal(b, ":arr");
     });
 
     it("should have 3 links (a tags) on /", async () => {
