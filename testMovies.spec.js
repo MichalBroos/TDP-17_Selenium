@@ -127,6 +127,27 @@ describe("Test Movies FE", function () {
         assert.equal(getByIdH2, "Search by id");
     });
 
+    it("should have 3 links (a tags) on /", async () => {
+        const expectedLength = 3;
+        await driver.get("http://localhost:3000/");
+        await driver.findElements(By.css("a"))
+            .then(links => assert.equal(links.length, expectedLength));
+    });
+
+    it("should have 3 links (a tags) on /add", async () => {
+        const expectedLength = 3;
+        await driver.get("http://localhost:3000/add");
+        await driver.findElements(By.css("a"))
+            .then(links => assert.equal(links.length, expectedLength));
+    });
+
+    it("should have 3 links (a tags) on /getbyid", async () => {
+        const expectedLength = 3;
+        await driver.get("http://localhost:3000/getbyid");
+        await driver.findElements(By.css("a"))
+            .then(links => assert.equal(links.length, expectedLength));
+    });
+
     it("navbar has the correct links (text) on /", async () => {
         await driver.get("http://localhost:3000/");
         // tagName deprecated, selenium docs - use css instead
@@ -173,27 +194,6 @@ describe("Test Movies FE", function () {
             });
         let actual = (await Promise.all(promises)).join(", ");
         assert.equal(actual, expected);
-    });
-
-    it("should have 3 links (a tags) on /", async () => {
-        const expectedLength = 3;
-        await driver.get("http://localhost:3000/");
-        await driver.findElements(By.css("a"))
-            .then(links => assert.equal(links.length, expectedLength));
-    });
-
-    it("should have 3 links (a tags) on /add", async () => {
-        const expectedLength = 3;
-        await driver.get("http://localhost:3000/add");
-        await driver.findElements(By.css("a"))
-            .then(links => assert.equal(links.length, expectedLength));
-    });
-
-    it("should have 3 links (a tags) on /getbyid", async () => {
-        const expectedLength = 3;
-        await driver.get("http://localhost:3000/getbyid");
-        await driver.findElements(By.css("a"))
-            .then(links => assert.equal(links.length, expectedLength));
     });
 
     it("navbar has the correct links (text) on /add", async () => {
@@ -270,5 +270,4 @@ describe("Test Movies FE", function () {
     });
 });
 
-// potential test "should have 3 links in navbar on /"
 // delete - base on assumption a movie is in already
