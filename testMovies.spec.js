@@ -223,6 +223,51 @@ describe("Test Movies FE", function () {
         let actual = (await Promise.all(promises)).join(", ");
         assert.equal(actual, expected);
     });
+
+    it("navbar has the correct links (href) on /", async () => {
+        let expected = "/, /add, /getbyid"
+        let promises = [];
+        await driver.get("http://localhost:3000/");
+        await driver.findElements(By.css("a"))
+            .then(links => {
+                for (let link of links) {
+                    promises.push(link.getAttribute("href"));
+                }
+            });
+        let actual = (await Promise.all(promises))
+                        .map(s => s.substring(s.lastIndexOf("/"))).join(", ");
+        assert.equal(actual, expected);
+    });
+
+    it("navbar has the correct links (href) on /add", async () => {
+        let expected = "/, /add, /getbyid"
+        let promises = [];
+        await driver.get("http://localhost:3000/add");
+        await driver.findElements(By.css("a"))
+            .then(links => {
+                for (let link of links) {
+                    promises.push(link.getAttribute("href"));
+                }
+            });
+        let actual = (await Promise.all(promises))
+                        .map(s => s.substring(s.lastIndexOf("/"))).join(", ");
+        assert.equal(actual, expected);
+    });
+
+    it("navbar has the correct links (href) on /getbyid", async () => {
+        let expected = "/, /add, /getbyid"
+        let promises = [];
+        await driver.get("http://localhost:3000/getbyid");
+        await driver.findElements(By.css("a"))
+            .then(links => {
+                for (let link of links) {
+                    promises.push(link.getAttribute("href"));
+                }
+            });
+        let actual = (await Promise.all(promises))
+                        .map(s => s.substring(s.lastIndexOf("/"))).join(", ");
+        assert.equal(actual, expected);
+    });
 });
 
 // potential test "should have 3 links in navbar on /"
